@@ -1,45 +1,55 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <algorithm>
+#include <string>
+#include <unordered_map>
+#include <vector>
 using namespace std;
 
-int main() {
+int main()
+{
     int t;
     cin >> t;
-
-    while (t--) {
+    while (t--)
+    {
         int n;
         cin >> n;
         string s;
         cin >> s;
-
-        if (n == 1) {
-            cout << s << "\n";
-            continue;
+        unordered_map<char, int> mpp;
+        for (int i = 0; i < s.size(); i++)
+        {
+            mpp[s[i]]++;
         }
-
-        vector<int> freq(26, 0);
-        for (char c : s) {
-            freq[c - 'a']++;
-        }
-
-        int maxChar = 0;
-        for (int i = 1; i < 26; i++) {
-            if (freq[i] > freq[maxChar]) {
-                maxChar = i;
+        int max_freq = 0, min_freq =INT_MAX;
+        char max_char, min_char;
+        for (auto it : mpp)
+        {
+            if (it.second > max_freq)
+            {
+                max_freq = it.second;
+                max_char = it.first;
+            }
+            if (it.second < min_freq)
+            {
+                min_freq = it.second;
+                min_char = it.first;
             }
         }
-
-        char best = char('a' + maxChar);
-
-        
-        for (int i = 0; i < n; i++) {
-            if (s[i] != best) {
-                s[i] = best;
-                break;   
+        bool found = false;
+        for (int i = 0; i < s.size(); i++)
+        {
+            if (s[i] != max_char && mpp[s[i]] == min_freq)
+            {
+                s[i] = max_char;
+                found = true;
+                break;
             }
         }
-
-        cout << s << "\n";
+        if (!found)
+        {
+            s[0] = max_char;
+        }
+        cout << s << endl;
     }
-
     return 0;
 }

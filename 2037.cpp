@@ -1,37 +1,28 @@
-#include <bits/stdc++.h>
+#include <iostream>
+
 using namespace std;
 
-int main() {
+int main()
+{
     int t;
     cin >> t;
-
-    while (t--) {
-        int n;
-        cin >> n;
-
-        if (n <= 3) {
-            cout << -1 << "\n";
+    while(t--){
+       int n;
+       cin >> n;
+       if(n < 5){
+            cout << "-1" << endl;
             continue;
+       }
+        for(int i = 1; i <= n; i += 2){
+            if(i == 5) continue;
+            cout << i << " ";
         }
-
-        vector<int> p;
-
-        // Fixed pattern
-        p.push_back(1);
-        p.push_back(n);
-        p.push_back(n - 1);
-        p.push_back(3);
-        p.push_back(n - 2);
-        p.push_back(2);
-
-        // Remaining numbers
-        for (int i = 4; i <= n - 3; i++) {
-            p.push_back(i);
+        cout << "5 4 ";
+        for(int i = 2; i <= n; i +=2){
+            if(i == 4) continue;
+            cout << i << " ";
         }
-
-        for (int x : p) cout << x << " ";
-        cout << "\n";
+        cout << endl;
     }
-
     return 0;
 }
